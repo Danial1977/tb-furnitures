@@ -1,0 +1,499 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* ========================================================
+     THEME 1: HERITAGE WALNUT (DEFAULT)
+     Warm English walnut timber, espresso typography, warm ivory.
+     ======================================================== */
+  :root,
+  .theme-heritage {
+    --bg-page: #FAF7F2;
+    --bg-surface: #FFFFFF;
+    --bg-subtle: #F5EFE6;
+    --text-heading: #26160C;
+    --text-main: #332015;
+    --text-muted: #664E40;
+    --brand-accent: #8C5E2D;
+    --brand-accent-hover: #734A1F;
+    --brand-accent-contrast: #FFFFFF;
+    --border-color: #E8DFD5;
+    --font-heading: 'Cinzel', 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  /* ========================================================
+     THEME 2: BRITISH NAVY BLUE & ICE WHITE
+     Deep British Midnight Navy, crisp porcelain white, royal sapphire & gold accents.
+     ======================================================== */
+  .theme-nordic {
+    --bg-page: #F8FAFC;
+    --bg-surface: #FFFFFF;
+    --bg-subtle: #EDF2F7;
+    --text-heading: #0A192F;
+    --text-main: #0F172A;
+    --text-muted: #475569;
+    --brand-accent: #1E3A8A;
+    --brand-accent-hover: #172554;
+    --brand-accent-contrast: #FFFFFF;
+    --border-color: #CBD5E1;
+    --font-heading: 'Cinzel', 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+  }
+
+  /* ========================================================
+     THEME 3: BOTANICAL OLIVE & COUNTRY MANOR
+     English country garden, deep Victorian evergreen pine text, forest sage accent.
+     ======================================================== */
+  .theme-botanical {
+    --bg-page: #F2F7F3;
+    --bg-surface: #FCFDFC;
+    --bg-subtle: #E4EFE6;
+    --text-heading: #082114;
+    --text-main: #123621;
+    --text-muted: #2E563B;
+    --brand-accent: #1E6637;
+    --brand-accent-hover: #16502A;
+    --brand-accent-contrast: #FFFFFF;
+    --border-color: #CCDED1;
+    --font-heading: 'Cinzel', 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+  }
+
+  /* ========================================================
+     THEME 4: LUXE NOIR & WHITE (HIGH CONTRAST)
+     Black background -> White text; White background -> Black text.
+     ======================================================== */
+  .theme-noir {
+    --bg-page: #FAF7F2;
+    --bg-surface: #FFFFFF;
+    --bg-subtle: #F0EDE6;
+    --text-heading: #000000;
+    --text-main: #111827;
+    --text-muted: #4B5563;
+    --brand-accent: #000000;
+    --brand-accent-hover: #27272A;
+    --brand-accent-contrast: #FFFFFF;
+    --border-color: #E5E7EB;
+    --font-heading: 'Cinzel', 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+  }
+
+  html {
+    font-family: var(--font-body);
+  }
+
+  body {
+    background-color: var(--bg-page) !important;
+    color: var(--text-main) !important;
+    font-family: var(--font-body);
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+
+  h1, h2, h3, h4, .font-editorial {
+    font-family: var(--font-heading) !important;
+    letter-spacing: -0.01em;
+  }
+}
+
+/* ========================================================
+   GLOBAL FONT COLOR & CONTRAST ENFORCEMENT ACROSS ALL THEMES
+   ======================================================== */
+
+/* ========================================================
+   GLOBAL FONT COLOR & CONTRAST ENFORCEMENT ACROSS ALL THEMES
+   ======================================================== */
+
+/* --------------------------------------------------------
+   1. HERITAGE WALNUT (DEFAULT)
+   -------------------------------------------------------- */
+.theme-heritage h1, .theme-heritage h2, .theme-heritage h3,
+.theme-heritage .text-charcoal-900, .theme-heritage .text-charcoal-800,
+.theme-heritage .text-gray-900, .theme-heritage .text-gray-800 {
+  color: #26160C !important;
+}
+.theme-heritage .text-charcoal-700, .theme-heritage .text-gray-700,
+.theme-heritage .text-gray-600 {
+  color: #523D32 !important;
+}
+.theme-heritage .text-gray-500, .theme-heritage .text-gray-400 {
+  color: #7A6153 !important;
+}
+.theme-heritage .text-brand-600, .theme-heritage .text-brand-700,
+.theme-heritage .text-brand-500 {
+  color: #8C5E2D !important;
+}
+.theme-heritage .bg-sand-50, .theme-heritage .bg-sand-50\/50,
+.theme-heritage .bg-brand-50, .theme-heritage .bg-brand-50\/60 {
+  background-color: var(--bg-page) !important;
+}
+.theme-heritage .bg-brand-100, .theme-heritage .bg-brand-100\/60 {
+  background-color: var(--bg-subtle) !important;
+}
+.theme-heritage .border-gray-200, .theme-heritage .border-brand-200,
+.theme-heritage .border-brand-100 {
+  border-color: var(--border-color) !important;
+}
+.theme-heritage .bg-brand-900,
+.theme-heritage .bg-charcoal-900 {
+  background-color: #26160C !important;
+  color: #FFFFFF !important;
+}
+.theme-heritage .bg-brand-900:hover,
+.theme-heritage .bg-charcoal-900:hover {
+  background-color: #1C1008 !important;
+}
+
+/* --------------------------------------------------------
+   2. BRITISH NAVY BLUE THEME COMBINATION (theme-nordic)
+   -------------------------------------------------------- */
+/* Surfaces & Borders */
+.theme-nordic .bg-sand-50, .theme-nordic .bg-sand-50\/50,
+.theme-nordic .bg-brand-50, .theme-nordic .bg-brand-50\/60 {
+  background-color: #F8FAFC !important;
+}
+.theme-nordic .bg-white {
+  background-color: #FFFFFF !important;
+}
+.theme-nordic .bg-brand-100, .theme-nordic .bg-brand-100\/60 {
+  background-color: #EDF2F7 !important;
+}
+.theme-nordic .border-gray-200, .theme-nordic .border-brand-200,
+.theme-nordic .border-brand-100, .theme-nordic .border-charcoal-800 {
+  border-color: #CBD5E1 !important;
+}
+
+/* Headings, Brand Logo & Main Navy Typography */
+.theme-nordic h1, .theme-nordic h2, .theme-nordic h3, .theme-nordic h4,
+.theme-nordic .font-editorial,
+.theme-nordic header a .font-editorial,
+.theme-nordic a.group .font-editorial {
+  color: #0A192F !important;
+}
+.theme-nordic header a span:last-child {
+  color: #1E3A8A !important;
+}
+.theme-nordic .text-charcoal-900, .theme-nordic .text-charcoal-800,
+.theme-nordic .text-gray-900, .theme-nordic .text-gray-800 {
+  color: #0F172A !important;
+}
+.theme-nordic .text-charcoal-700, .theme-nordic .text-gray-700,
+.theme-nordic .text-gray-600 {
+  color: #334155 !important;
+}
+.theme-nordic .text-gray-500, .theme-nordic .text-gray-400 {
+  color: #64748B !important;
+}
+.theme-nordic .text-brand-600, .theme-nordic .text-brand-700,
+.theme-nordic .text-brand-500 {
+  color: #1E3A8A !important;
+}
+
+/* Navy Announcement Bar */
+.theme-nordic .bg-charcoal-900,
+.theme-nordic [class*="bg-charcoal-900"] {
+  background-color: #06101E !important;
+}
+.theme-nordic .bg-charcoal-900 *,
+.theme-nordic [class*="bg-charcoal-900"] * {
+  color: #F1F5F9 !important;
+}
+.theme-nordic .bg-charcoal-900 svg {
+  color: #93C5FD !important;
+}
+
+/* Deep Navy Category Bar */
+.theme-nordic header nav {
+  background-color: #0A192F !important;
+  border-color: #1E293B !important;
+}
+.theme-nordic header nav a,
+.theme-nordic header nav span,
+.theme-nordic header nav ul li a {
+  color: #FFFFFF !important;
+}
+.theme-nordic header nav a:hover {
+  color: #38BDF8 !important;
+}
+.theme-nordic header nav .text-red-700 {
+  color: #F59E0B !important;
+}
+/* Subcategory Popup on Navy */
+.theme-nordic header nav .absolute {
+  background-color: #FFFFFF !important;
+  border-color: #CBD5E1 !important;
+}
+.theme-nordic header nav .absolute a {
+  color: #0F172A !important;
+}
+.theme-nordic header nav .absolute a:hover {
+  background-color: #EDF2F7 !important;
+  color: #1E3A8A !important;
+}
+
+/* Header Elements & Search in Navy */
+.theme-nordic header {
+  background-color: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+}
+.theme-nordic header input {
+  background-color: #F8FAFC !important;
+  border-color: #94A3B8 !important;
+  color: #0F172A !important;
+}
+.theme-nordic header input::placeholder {
+  color: #64748B !important;
+}
+.theme-nordic header a[href="/cart"],
+.theme-nordic .bg-brand-900 {
+  background-color: #0A192F !important;
+  color: #FFFFFF !important;
+}
+.theme-nordic header a[href="/cart"]:hover,
+.theme-nordic .bg-brand-900:hover {
+  background-color: #172554 !important;
+}
+.theme-nordic header a[href="/cart"] * {
+  color: #FFFFFF !important;
+}
+
+/* Category Filter Pills on Navy */
+.theme-nordic button.bg-charcoal-900 {
+  background-color: #0A192F !important;
+  color: #FFFFFF !important;
+}
+.theme-nordic button.bg-brand-50 {
+  background-color: #EDF2F7 !important;
+  color: #0F172A !important;
+}
+.theme-nordic button.bg-brand-50:hover {
+  background-color: #E2E8F0 !important;
+}
+
+/* Deep Navy Footer */
+.theme-nordic footer {
+  background-color: #0A192F !important;
+  border-color: #1E293B !important;
+}
+.theme-nordic footer h4,
+.theme-nordic footer .font-editorial,
+.theme-nordic footer a,
+.theme-nordic footer strong {
+  color: #FFFFFF !important;
+}
+.theme-nordic footer p,
+.theme-nordic footer span {
+  color: #94A3B8 !important;
+}
+.theme-nordic footer svg {
+  color: #60A5FA !important;
+}
+
+/* --------------------------------------------------------
+   3. BOTANICAL OLIVE
+   -------------------------------------------------------- */
+.theme-botanical h1, .theme-botanical h2, .theme-botanical h3,
+.theme-botanical .text-charcoal-900, .theme-botanical .text-charcoal-800,
+.theme-botanical .text-gray-900, .theme-botanical .text-gray-800 {
+  color: #082114 !important;
+}
+.theme-botanical .text-charcoal-700, .theme-botanical .text-gray-700,
+.theme-botanical .text-gray-600 {
+  color: #22422E !important;
+}
+.theme-botanical .text-gray-500, .theme-botanical .text-gray-400 {
+  color: #436950 !important;
+}
+.theme-botanical .text-brand-600, .theme-botanical .text-brand-700,
+.theme-botanical .text-brand-500 {
+  color: #1E6637 !important;
+}
+.theme-botanical .bg-sand-50, .theme-botanical .bg-sand-50\/50,
+.theme-botanical .bg-brand-50, .theme-botanical .bg-brand-50\/60 {
+  background-color: var(--bg-page) !important;
+}
+.theme-botanical .bg-brand-100, .theme-botanical .bg-brand-100\/60 {
+  background-color: var(--bg-subtle) !important;
+}
+.theme-botanical .border-gray-200, .theme-botanical .border-brand-200,
+.theme-botanical .border-brand-100 {
+  border-color: var(--border-color) !important;
+}
+.theme-botanical .bg-brand-900,
+.theme-botanical .bg-charcoal-900 {
+  background-color: #1E6637 !important;
+  color: #FFFFFF !important;
+}
+.theme-botanical .bg-brand-900:hover,
+.theme-botanical .bg-charcoal-900:hover {
+  background-color: #16502A !important;
+}
+
+/* --------------------------------------------------------
+   4. LUXE NOIR (STRICT CONTRAST: BLACK BG -> WHITE TEXT; WHITE BG -> BLACK TEXT)
+   -------------------------------------------------------- */
+
+/* A. WHITE / LIGHT SURFACES: ALL TEXT IS BLACK */
+.theme-noir .bg-white {
+  background-color: #FFFFFF !important;
+  color: #000000 !important;
+  border-color: #E4E4E7 !important;
+}
+.theme-noir .bg-sand-50, .theme-noir .bg-sand-50\/50,
+.theme-noir .bg-brand-50, .theme-noir .bg-brand-50\/60 {
+  background-color: #FAF7F2 !important;
+}
+.theme-noir .bg-brand-100, .theme-noir .bg-brand-100\/60 {
+  background-color: #F0EDE6 !important;
+}
+.theme-noir .border-gray-200, .theme-noir .border-gray-100,
+.theme-noir .border-brand-200, .theme-noir .border-brand-100 {
+  border-color: #E4E4E7 !important;
+}
+
+/* Headings & High-Emphasis Text on White/Light surfaces: BLACK */
+.theme-noir h1, .theme-noir h2, .theme-noir h3, .theme-noir h4,
+.theme-noir .font-editorial,
+.theme-noir header a .font-editorial,
+.theme-noir a.group .font-editorial {
+  color: #000000 !important;
+}
+.theme-noir header a span:last-child {
+  color: #000000 !important;
+}
+.theme-noir .text-charcoal-900, .theme-noir .text-charcoal-800,
+.theme-noir .text-gray-900, .theme-noir .text-gray-800 {
+  color: #000000 !important;
+}
+.theme-noir .text-charcoal-700, .theme-noir .text-gray-700,
+.theme-noir .text-gray-600 {
+  color: #18181B !important;
+}
+.theme-noir .text-gray-500, .theme-noir .text-gray-400 {
+  color: #52525B !important;
+}
+.theme-noir .text-brand-600, .theme-noir .text-brand-700,
+.theme-noir .text-brand-500 {
+  color: #000000 !important;
+}
+
+/* Inactive Filter Pills on light background: Light pill with black text */
+.theme-noir button.bg-brand-50 {
+  background-color: #F4F4F5 !important;
+  color: #000000 !important;
+  border: 1px solid #D4D4D8 !important;
+}
+.theme-noir button.bg-brand-50:hover {
+  background-color: #E4E4E7 !important;
+}
+
+/* B. BLACK / DARK SURFACES: ALL TEXT IS WHITE */
+/* Announcement Bar */
+.theme-noir .bg-charcoal-900,
+.theme-noir .bg-charcoal-950 {
+  background-color: #000000 !important;
+  border-color: #27272A !important;
+}
+.theme-noir .bg-charcoal-900 *,
+.theme-noir .bg-charcoal-950 * {
+  color: #FFFFFF !important;
+}
+.theme-noir .bg-charcoal-900 svg {
+  color: #F59E0B !important;
+}
+
+/* Category Navigation Bar */
+.theme-noir header nav {
+  background-color: #000000 !important;
+  border-color: #27272A !important;
+}
+.theme-noir header nav a,
+.theme-noir header nav span,
+.theme-noir header nav ul li a,
+.theme-noir header nav li,
+.theme-noir header nav div {
+  color: #FFFFFF !important;
+}
+.theme-noir header nav a:hover {
+  color: #F59E0B !important;
+}
+.theme-noir header nav .text-red-700 {
+  color: #F59E0B !important;
+}
+/* Mega-menu popup in nav (White background -> Black text) */
+.theme-noir header nav .absolute {
+  background-color: #FFFFFF !important;
+  border-color: #E4E4E7 !important;
+}
+.theme-noir header nav .absolute * {
+  color: #000000 !important;
+}
+.theme-noir header nav .absolute a:hover {
+  background-color: #F4F4F5 !important;
+  color: #000000 !important;
+}
+
+/* Header Search Input (Black background -> White text) */
+.theme-noir header input {
+  background-color: #000000 !important;
+  color: #FFFFFF !important;
+  border-color: #27272A !important;
+}
+.theme-noir header input::placeholder {
+  color: #A1A1AA !important;
+}
+/* Autocomplete Dropdown (White background -> Black text) */
+.theme-noir header .absolute {
+  background-color: #FFFFFF !important;
+  border-color: #E4E4E7 !important;
+}
+.theme-noir header .absolute * {
+  color: #000000 !important;
+}
+.theme-noir header .absolute .text-gray-400,
+.theme-noir header .absolute .text-gray-500 {
+  color: #71717A !important;
+}
+
+/* Black Buttons & Active Filter Pills (Black background -> White text) */
+.theme-noir button.bg-charcoal-900,
+.theme-noir .bg-black,
+.theme-noir a.bg-brand-900,
+.theme-noir header a[href="/cart"] {
+  background-color: #000000 !important;
+  color: #FFFFFF !important;
+}
+.theme-noir button.bg-charcoal-900 *,
+.theme-noir .bg-black *,
+.theme-noir a.bg-brand-900 *,
+.theme-noir header a[href="/cart"] * {
+  color: #FFFFFF !important;
+}
+.theme-noir button.bg-charcoal-900:hover,
+.theme-noir a.bg-brand-900:hover,
+.theme-noir header a[href="/cart"]:hover {
+  background-color: #27272A !important;
+}
+
+/* Footer (Black background -> White text) */
+.theme-noir footer {
+  background-color: #000000 !important;
+  border-color: #27272A !important;
+}
+.theme-noir footer h4,
+.theme-noir footer .font-editorial,
+.theme-noir footer a,
+.theme-noir footer strong,
+.theme-noir footer li {
+  color: #FFFFFF !important;
+}
+.theme-noir footer p,
+.theme-noir footer span {
+  color: #D4D4D8 !important;
+}
+.theme-noir footer svg {
+  color: #F59E0B !important;
+}
