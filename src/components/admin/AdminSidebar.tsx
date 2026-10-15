@@ -16,6 +16,7 @@ import {
   Store,
   LogOut,
   Layers,
+  FileText,
 } from 'lucide-react';
 import { signOut } from 'next-auth/react';
 
@@ -93,6 +94,17 @@ export function AdminSidebar() {
             </div>
             <ExternalLink className="w-3.5 h-3.5" />
           </a>
+          <Link
+            href="/docs"
+            target="_blank"
+            className="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-medium text-amber-400 hover:bg-charcoal-900 hover:text-amber-300 transition-colors mt-1"
+          >
+            <div className="flex items-center gap-3">
+              <FileText className="w-4 h-4 text-amber-400" />
+              <span>System Docs (PDF)</span>
+            </div>
+            <ExternalLink className="w-3.5 h-3.5" />
+          </Link>
         </div>
       </nav>
 
