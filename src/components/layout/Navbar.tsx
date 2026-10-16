@@ -119,7 +119,7 @@ export function Navbar() {
           <img
             src="/images/oakland-logo.jpg"
             alt="Oakland Furniture & Flooring"
-            className="h-11 sm:h-14 md:h-20 lg:h-[88px] xl:h-[94px] w-[120px] sm:w-[160px] md:w-[210px] lg:w-[250px] xl:w-[270px] rounded-lg shadow-sm border border-brand-200/60 transition-transform group-hover:scale-[1.02]"
+            className="w-[130px] sm:w-[160px] md:w-[200px] h-auto object-contain rounded-lg shadow-sm border border-brand-200/60 transition-transform group-hover:scale-[1.02]"
           />
         </Link>
 
