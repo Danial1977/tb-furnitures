@@ -119,12 +119,12 @@ export function Navbar() {
           <img
             src="/images/oakland-logo.jpg"
             alt="Oakland Furniture & Flooring"
-            className="h-11 sm:h-14 md:h-20 lg:h-[88px] xl:h-[94px] w-auto object-contain rounded-lg shadow-sm border border-brand-200/60 transition-transform group-hover:scale-[1.02]"
+            className="h-11 sm:h-14 md:h-20 lg:h-[88px] xl:h-[94px] w-[120px] sm:w-[160px] md:w-[210px] lg:w-[250px] xl:w-[270px] rounded-lg shadow-sm border border-brand-200/60 transition-transform group-hover:scale-[1.02]"
           />
         </Link>
 
         {/* Global Live Search Bar (Desktop) with Live Dropdown */}
-        <div ref={searchContainerRef} className="hidden md:flex flex-1 max-w-md relative">
+        <div ref={searchContainerRef} className="hidden md:flex flex-1 max-w-lg lg:max-w-xl relative">
           <form onSubmit={handleSearchSubmit} className="w-full relative">
             <input
               type="text"
