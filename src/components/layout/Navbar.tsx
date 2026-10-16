@@ -104,7 +104,7 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-brand-100 transition-all">
       {/* Main Bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-1.5 sm:py-2 flex items-center justify-between gap-4 sm:gap-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-0 flex items-center justify-between gap-4 sm:gap-6">
         {/* Mobile menu trigger */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -115,11 +115,11 @@ export function Navbar() {
         </button>
 
         {/* Brand Logo */}
-        <Link href="/" className="flex items-center shrink-0 group">
+        <Link href="/" className="flex items-center shrink-0 group py-0 my-0">
           <img
             src="/images/oakland-logo.jpg"
             alt="Oakland Furniture & Flooring"
-            className="w-[130px] sm:w-[160px] md:w-[200px] h-auto object-contain rounded-lg shadow-sm border border-brand-200/60 transition-transform group-hover:scale-[1.02]"
+            className="w-[140px] sm:w-[170px] md:w-[200px] h-auto object-contain block transition-transform group-hover:scale-[1.01]"
           />
         </Link>
 
