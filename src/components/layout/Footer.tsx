@@ -125,7 +125,6 @@ export function Footer() {
               <li><Link href="/account/orders" className="hover:text-white transition-colors">Track Order Status</Link></li>
               <li><Link href="/privacy" className="hover:text-white transition-colors">Privacy Notice & Cookies</Link></li>
               <li><Link href="/terms" className="hover:text-white transition-colors">Terms of Sale</Link></li>
-              <li><Link href="/admin" className="text-brand-400 hover:text-brand-300 font-medium transition-colors">Admin Portal &rarr;</Link></li>
             </ul>
           </div>
         </div>
