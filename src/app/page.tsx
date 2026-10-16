@@ -1,9 +1,11 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowRight, Sparkles, Award, Compass } from 'lucide-react';
+import { useState } from 'react';
+import { ArrowRight, Sparkles, Award, Compass, CheckCircle } from 'lucide-react';
 import { ProductCard } from '@/components/storefront/ProductCard';
 import { ProductSummary } from '@/types';
+
 
 // Curated high-resolution demo products
 const FEATURED_PRODUCTS: ProductSummary[] = [
@@ -146,6 +148,38 @@ const ROOM_CATEGORIES = [
 ];
 
 export default function HomePage() {
+  const [newsletterEmail, setNewsletterEmail] = useState('');
+  const [newsletterLoading, setNewsletterLoading] = useState(false);
+  const [newsletterMessage, setNewsletterMessage] = useState<string | null>(null);
+
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newsletterEmail) return;
+    setNewsletterLoading(true);
+    setNewsletterMessage(null);
+    try {
+      const res = await fetch('/api/submissions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'NEWSLETTER',
+          email: newsletterEmail,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setNewsletterMessage(data.message || "Thank you for subscribing! We've registered your £50 welcome discount.");
+        setNewsletterEmail('');
+      } else {
+        setNewsletterMessage(data.error || 'Failed to subscribe. Please try again.');
+      }
+    } catch (err) {
+      setNewsletterMessage('An error occurred. Please try again shortly.');
+    } finally {
+      setNewsletterLoading(false);
+    }
+  };
+
   return (
     <div className="space-y-20 pb-20">
       {/* 1. HERO CAROUSEL / EDITORIAL SHOWCASE */}
@@ -334,32 +368,39 @@ export default function HomePage() {
       {/* 5. NEWSLETTER / BESPOKE CONCIERGE */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 text-center space-y-6">
         <h2 className="font-editorial text-3xl sm:text-4xl text-charcoal-900 font-bold">
-          Join the TB Interiors Circle
+          Join the Oakland Living Circle
         </h2>
         <p className="text-sm text-charcoal-700/80 max-w-lg mx-auto">
-          Receive private invitations to seasonal sample sales, new collection drops, and £50 off your first furniture order over £500.
+          Receive private invitations to seasonal sample sales, new collection drops, and £50 off your first furniture or flooring order over £500.
         </p>
 
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            alert('Thank you for subscribing! Your £50 welcome voucher has been sent to your email.');
-          }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto pt-2"
-        >
-          <input
-            type="email"
-            required
-            placeholder="Enter your email address..."
-            className="w-full bg-white border border-brand-200 rounded-full px-5 py-3 text-sm text-charcoal-900 focus:outline-none focus:ring-2 focus:ring-brand-400"
-          />
-          <button
-            type="submit"
-            className="w-full sm:w-auto bg-charcoal-900 hover:bg-brand-900 text-white text-xs font-semibold px-7 py-3.5 rounded-full transition-colors shrink-0"
+        {newsletterMessage ? (
+          <div className="inline-flex items-center gap-2 p-4 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-2xl text-xs font-medium">
+            <CheckCircle className="w-4 h-4 text-emerald-600" />
+            <span>{newsletterMessage}</span>
+          </div>
+        ) : (
+          <form
+            onSubmit={handleNewsletterSubmit}
+            className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto pt-2"
           >
-            Subscribe
-          </button>
-        </form>
+            <input
+              type="email"
+              required
+              value={newsletterEmail}
+              onChange={(e) => setNewsletterEmail(e.target.value)}
+              placeholder="Enter your email address..."
+              className="w-full bg-white border border-brand-200 rounded-full px-5 py-3 text-sm text-charcoal-900 focus:outline-none focus:ring-2 focus:ring-brand-400"
+            />
+            <button
+              type="submit"
+              disabled={newsletterLoading}
+              className="w-full sm:w-auto bg-charcoal-900 hover:bg-brand-900 text-white text-xs font-semibold px-7 py-3.5 rounded-full transition-colors shrink-0 disabled:opacity-50"
+            >
+              {newsletterLoading ? 'Subscribing...' : 'Subscribe'}
+            </button>
+          </form>
+        )}
         <p className="text-[11px] text-gray-400">We respect your privacy. Unsubscribe at any time.</p>
       </section>
     </div>

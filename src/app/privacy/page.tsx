@@ -25,7 +25,7 @@ export default function PrivacyPage() {
               1. Who We Are (Data Controller)
             </h2>
             <p>
-              TB Furnitures (UK) Ltd (&quot;we&quot;, &quot;us&quot;, &quot;our&quot;) is the Data Controller responsible for your personal data. If you have questions regarding this notice or wish to exercise your data subject rights, contact our Data Privacy Officer at <span className="font-mono text-brand-700">privacy@tbfurnitures.co.uk</span> or write to: Data Protection Officer, TB Furnitures, 45 Regent Mews, Marylebone, London, W1B 3HH.
+              OAKLAND FURNITURE AND FLOORING LTD (&quot;we&quot;, &quot;us&quot;, &quot;our&quot;) is the Data Controller responsible for your personal data. Registered in England & Wales (#17396425, Incorporated 12 August 2026). If you have questions regarding this notice or wish to exercise your data subject rights, contact our Data Privacy Officer at <span className="font-mono text-brand-700">Taj.TSO@gmail.com</span> or write to: Data Protection Officer, Oakland Furniture & Flooring, 236 Easterly Road, Leeds LS8 3ES, UK.
             </p>
           </section>
 

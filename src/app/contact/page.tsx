@@ -13,14 +13,36 @@ export default function ContactPage() {
     enquiryType: 'ORDER',
     message: '',
   });
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
+    setErrorMessage(null);
+    try {
+      const res = await fetch('/api/submissions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'CONTACT_INQUIRY',
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          enquiryType: formData.enquiryType,
+          message: formData.message,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setSubmitted(true);
+      } else {
+        setErrorMessage(data.error || 'Failed to submit enquiry. Please check your details.');
+      }
+    } catch (err) {
+      setErrorMessage('Unable to connect to the server. Please try again.');
+    } finally {
       setLoading(false);
-      setSubmitted(true);
-    }, 600);
+    }
   };
 
   return (
@@ -35,7 +57,7 @@ export default function ContactPage() {
             Contact Our Concierge
           </h1>
           <p className="text-sm md:text-base text-gray-600 max-w-2xl mx-auto leading-relaxed">
-            Whether you need bespoke dimension advice, fabric consultations, or delivery updates, our Marylebone interior specialists are at your service.
+            Whether you need bespoke dimension advice, timber or flooring consultations, or delivery updates, our Leeds interior specialists are at your service.
           </p>
         </div>
 
@@ -47,32 +69,36 @@ export default function ContactPage() {
                 Showroom & Enquiries
               </h2>
               <p className="text-xs text-brand-200/80 leading-relaxed">
-                Experience our curated timber finishes, mattresses, and linen upholstery in person at our Central London showroom.
+                Experience our curated timber finishes, designer flooring, beds, and luxury upholstery in person at our Leeds showroom.
               </p>
 
               <div className="space-y-4 text-xs text-brand-200">
                 <div className="flex items-start gap-3">
                   <MapPin className="w-5 h-5 text-brand-400 shrink-0 mt-0.5" />
                   <div>
-                    <strong className="text-white block font-medium">Flagship Showroom</strong>
-                    <span>45 Regent Mews, Marylebone, London, W1B 3HH</span>
+                    <strong className="text-white block font-medium">Leeds Flagship Showroom</strong>
+                    <span>236 Easterly Road, Leeds LS8 3ES</span>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
                   <Phone className="w-5 h-5 text-brand-400 shrink-0 mt-0.5" />
                   <div>
-                    <strong className="text-white block font-medium">Phone Support</strong>
-                    <span>+44 (0) 800 123 4567</span>
-                    <p className="text-[11px] text-brand-300/70 mt-0.5">Freephone UK Mainland</p>
+                    <strong className="text-white block font-medium">Telephone & Mobile Support</strong>
+                    <div className="mt-0.5 space-y-1">
+                      <p>Landline: <a href="tel:01138085120" className="text-brand-300 hover:text-white font-semibold">0113 808 5120</a></p>
+                      <p>Mobile: <a href="tel:07467279653" className="text-brand-300 hover:text-white font-semibold">07467 279653</a></p>
+                    </div>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
                   <Mail className="w-5 h-5 text-brand-400 shrink-0 mt-0.5" />
                   <div>
-                    <strong className="text-white block font-medium">Email</strong>
-                    <span>concierge@tbfurnitures.co.uk</span>
+                    <strong className="text-white block font-medium">Direct Email</strong>
+                    <a href="mailto:Taj.TSO@gmail.com" className="text-brand-300 hover:text-white underline">
+                      Taj.TSO@gmail.com
+                    </a>
                   </div>
                 </div>
 
@@ -89,7 +115,7 @@ export default function ContactPage() {
             </div>
 
             <div className="pt-6 border-t border-charcoal-800 text-[11px] text-brand-300/70">
-              TB Furnitures (UK) Ltd • Registered in England & Wales #14892014
+              OAKLAND FURNITURE AND FLOORING LTD • Company #17396425 (Inc. 12 August 2026)
             </div>
           </div>
 
@@ -104,10 +130,13 @@ export default function ContactPage() {
                   Enquiry Received
                 </h3>
                 <p className="text-xs text-gray-600 max-w-md mx-auto leading-relaxed">
-                  Thank you for contacting TB Furnitures. A dedicated interior specialist will review your request and get in touch within 2 to 4 business hours.
+                  Thank you for contacting Oakland Furniture & Flooring. A dedicated interior specialist will review your request and get in touch within 2 to 4 business hours.
                 </p>
                 <button
-                  onClick={() => setSubmitted(false)}
+                  onClick={() => {
+                    setSubmitted(false);
+                    setFormData({ name: '', email: '', phone: '', enquiryType: 'ORDER', message: '' });
+                  }}
                   className="mt-4 px-6 py-2.5 bg-charcoal-900 hover:bg-brand-900 text-white text-xs font-semibold rounded-xl transition-colors"
                 >
                   Send Another Message
@@ -192,6 +221,12 @@ export default function ContactPage() {
                     placeholder="Tell us about your room measurements, preferred wood finishes, or existing order number..."
                   />
                 </div>
+
+                {errorMessage && (
+                  <div className="p-3 bg-red-50 text-red-700 border border-red-200 rounded-xl text-xs">
+                    {errorMessage}
+                  </div>
+                )}
 
                 <div className="flex justify-end pt-2">
                   <button

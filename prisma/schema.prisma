@@ -494,3 +494,29 @@ model AdminAuditLog {
 
   @@map("admin_audit_logs")
 }
+
+// ----------------------------------------------------
+// 6. CONTACT INQUIRIES & NEWSLETTER SUBSCRIPTIONS
+// ----------------------------------------------------
+
+enum SubmissionType {
+  NEWSLETTER
+  CONTACT_INQUIRY
+}
+
+model ContactSubmission {
+  id           String          @id @default(uuid())
+  type         SubmissionType  @default(CONTACT_INQUIRY)
+  name         String?
+  email        String
+  phone        String?
+  enquiryType  String?         // ORDER, PRODUCT, SWATCH, TRADE, GENERAL, NEWSLETTER
+  message      String?
+  status       String          @default("NEW") // NEW, IN_PROGRESS, RESOLVED, ARCHIVED
+  metadata     Json?
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+
+  @@map("contact_submissions")
+}
+

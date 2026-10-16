@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Truck, ShieldCheck, PhoneCall } from 'lucide-react';
+import { Truck, MapPin, PhoneCall, Smartphone } from 'lucide-react';
 
 export function AnnouncementBar() {
   return (
@@ -10,23 +10,31 @@ export function AnnouncementBar() {
             <Truck className="w-3.5 h-3.5 text-brand-400" />
             <span>Complimentary UK Delivery on orders over £500</span>
           </div>
-          <div className="hidden sm:flex items-center gap-1.5">
-            <ShieldCheck className="w-3.5 h-3.5 text-sage-500" />
-            <span>10-Year Frame Guarantee on Sofas & Beds</span>
+          <div className="hidden sm:flex items-center gap-1.5 text-brand-300">
+            <MapPin className="w-3.5 h-3.5 text-brand-400" />
+            <span>Showroom: 236 Easterly Road, Leeds LS8 3ES</span>
           </div>
         </div>
 
         <div className="flex items-center gap-4 text-brand-300">
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-2">
             <PhoneCall className="w-3 h-3 text-brand-400" />
-            <span>UK Showroom Support: 0800 123 4567</span>
+            <a href="tel:01138085120" className="hover:text-white transition-colors">
+              0113 808 5120
+            </a>
+            <span className="text-charcoal-600">/</span>
+            <Smartphone className="w-3 h-3 text-brand-400" />
+            <a href="tel:07467279653" className="hover:text-white transition-colors">
+              07467 279653
+            </a>
           </div>
-          <span className="hidden sm:inline">|</span>
-          <Link href="/help" className="hover:text-white transition-colors">
-            Help & Delivery FAQ
+          <span className="hidden sm:inline text-charcoal-600">|</span>
+          <Link href="/contact" className="hover:text-white transition-colors font-medium">
+            Contact Us
           </Link>
         </div>
       </div>
     </div>
   );
 }
+

@@ -4,15 +4,14 @@ import { StorefrontLayoutWrapper } from '@/components/layout/StorefrontLayoutWra
 import { Providers } from '@/components/providers/Providers';
 
 export const metadata: Metadata = {
-  title: 'TB Furnitures | Handcrafted & Contemporary British Furniture',
+  title: 'Oakland Furniture & Flooring | Handcrafted Furniture & Flooring UK',
   description:
-    'Discover timeless living, bedroom, dining, and outdoor furniture handcrafted with natural oak, rich walnut, and bespoke finishes. White glove UK delivery available.',
-  keywords: 'furniture UK, modern sofa, oak dining table, bedroom sets, luxury home decor, TB Furnitures',
+    'OAKLAND FURNITURE AND FLOORING LTD — Crafted for Living. Exceptional handcrafted furniture, solid hardwoods, luxury upholstery, and designer flooring solutions in Leeds and across the UK.',
+  keywords: 'Oakland Furniture, flooring Leeds, modern sofa, solid oak dining table, luxury bedroom furniture, bespoke flooring UK',
   openGraph: {
-    title: 'TB Furnitures — British Home Interiors',
-    description: 'Elevate your home with contemporary and timeless furniture collections.',
-    url: 'https://tbfurnitures.co.uk',
-    siteName: 'TB Furnitures',
+    title: 'Oakland Furniture & Flooring — Crafted for Living',
+    description: 'Discover handcrafted furniture and designer flooring built for timeless family living.',
+    siteName: 'Oakland Furniture & Flooring',
     locale: 'en_GB',
     type: 'website',
   },

@@ -26,7 +26,7 @@ export default function TermsPage() {
               1. Company Information
             </h2>
             <p>
-              This website is operated by <strong>TB Furnitures (UK) Ltd</strong> (&quot;we&quot;, &quot;us&quot;, &quot;our&quot;). Registered in England and Wales under Company Registration Number 14892014. Registered Office & Flagship Showroom: 45 Regent Mews, Marylebone, London, W1B 3HH, United Kingdom. UK VAT Registration Number: GB 429 8812 04.
+              This website is operated by <strong>OAKLAND FURNITURE AND FLOORING LTD</strong> (&quot;we&quot;, &quot;us&quot;, &quot;our&quot;). Registered in England and Wales under Company Registration Number 17396425 (Incorporated on 12 August 2026). Registered Office & Flagship Showroom: 236 Easterly Road, Leeds LS8 3ES, United Kingdom. Direct Customer Support: 0113 808 5120 / 07467 279653. Email: Taj.TSO@gmail.com.
             </p>
           </section>
 

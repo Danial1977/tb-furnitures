@@ -41,26 +41,53 @@ export function Footer() {
         {/* Navigation Links Grid */}
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 py-12">
           {/* Brand info */}
-          <div className="col-span-2">
-            <span className="font-editorial text-2xl font-bold tracking-tight text-white block">
-              TB FURNITURES
-            </span>
-            <p className="text-xs text-brand-200/70 mt-3 max-w-sm leading-relaxed">
-              Curating contemporary and timeless interior spaces across the UK. Crafted from sustainably harvested European oak, American walnut, and premium natural upholstery fabrics.
+          <div className="col-span-2 space-y-4">
+            <Link href="/" className="inline-block">
+              <img
+                src="/images/oakland-logo.jpg"
+                alt="Oakland Furniture & Flooring - Crafted for Living"
+                className="h-14 sm:h-16 w-auto object-contain rounded-lg border border-charcoal-700/80 shadow-md"
+              />
+            </Link>
+            <p className="text-xs text-brand-200/80 max-w-sm leading-relaxed">
+              OAKLAND FURNITURE AND FLOORING LTD — Crafted for Living. Exceptional handcrafted furniture, solid hardwoods, luxury upholstery, and designer flooring solutions across the UK.
             </p>
-            <div className="mt-5 space-y-2 text-xs text-brand-300">
-              <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-brand-400" />
-                <span>Showroom: 45 Regent Mews, Marylebone, London, W1B 3HH</span>
+            <div className="pt-2 space-y-2 text-xs text-brand-300">
+              <div className="flex items-start gap-2.5">
+                <MapPin className="w-4 h-4 text-brand-400 shrink-0 mt-0.5" />
+                <span>Showroom: 236 Easterly Road, Leeds LS8 3ES</span>
               </div>
-              <div className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-brand-400" />
-                <span>Customer Care: +44 (0) 800 123 4567 (Mon-Sat 9am-6pm)</span>
+              <div className="flex items-center gap-2.5">
+                <Phone className="w-4 h-4 text-brand-400 shrink-0" />
+                <span>
+                  Tel: <a href="tel:01138085120" className="hover:text-white font-medium">0113 808 5120</a> / Mob: <a href="tel:07467279653" className="hover:text-white font-medium">07467 279653</a>
+                </span>
               </div>
-              <div className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-brand-400" />
-                <span>Enquiries: concierge@tbfurnitures.co.uk</span>
+              <div className="flex items-center gap-2.5">
+                <Mail className="w-4 h-4 text-brand-400 shrink-0" />
+                <span>
+                  Email:{' '}
+                  <a href="mailto:Taj.TSO@gmail.com" className="hover:text-white font-medium underline">
+                    Taj.TSO@gmail.com
+                  </a>
+                </span>
               </div>
+            </div>
+
+            {/* Social Links */}
+            <div className="pt-2 flex items-center gap-3 text-xs text-brand-400">
+              <span className="text-[11px] uppercase tracking-wider text-charcoal-400 font-semibold">Follow Us:</span>
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                Facebook
+              </a>
+              <span>•</span>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                Instagram
+              </a>
+              <span>•</span>
+              <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                TikTok
+              </a>
             </div>
           </div>
 
@@ -103,10 +130,17 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Bottom copyright */}
-        <div className="pt-8 mt-4 border-t border-charcoal-800 flex flex-col md:flex-row items-center justify-between text-xs text-brand-300/60 gap-4">
-          <p>© {new Date().getFullYear()} TB Furnitures Ltd. All rights reserved. Registered in England & Wales.</p>
-          <div className="flex items-center gap-6">
+        {/* Bottom copyright & Company Incorporation */}
+        <div className="pt-8 mt-4 border-t border-charcoal-800 flex flex-col md:flex-row items-center justify-between text-xs text-brand-300/70 gap-4">
+          <div>
+            <p className="font-medium text-white">
+              © {new Date().getFullYear()} OAKLAND FURNITURE AND FLOORING LTD. All rights reserved.
+            </p>
+            <p className="text-[11px] text-charcoal-400 mt-0.5">
+              Company No. 17396425 — Incorporated on 12 August 2026 • Private limited company registered in England & Wales.
+            </p>
+          </div>
+          <div className="flex items-center gap-6 text-[11px] text-brand-300/60">
             <span>Prices displayed in GBP (£) inclusive of 20% UK VAT</span>
             <span className="hidden sm:inline">|</span>
             <span>Secured via Stripe 256-Bit SSL</span>
@@ -116,3 +150,4 @@ export function Footer() {
     </footer>
   );
 }
+

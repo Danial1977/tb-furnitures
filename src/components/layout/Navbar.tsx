@@ -115,13 +115,12 @@ export function Navbar() {
         </button>
 
         {/* Brand Logo */}
-        <Link href="/" className="flex flex-col items-start leading-none group">
-          <span className="font-editorial text-2xl sm:text-3xl font-bold tracking-tight text-charcoal-900 group-hover:text-brand-600 transition-colors">
-            TB FURNITURES
-          </span>
-          <span className="text-[10px] uppercase tracking-[0.25em] text-brand-500 font-medium mt-0.5">
-            British Interiors & Living
-          </span>
+        <Link href="/" className="flex items-center gap-3 group shrink-0 py-1">
+          <img
+            src="/images/oakland-logo.jpg"
+            alt="Oakland Furniture & Flooring"
+            className="h-11 sm:h-13 w-auto object-contain rounded-md shadow-sm border border-brand-200/60 transition-transform group-hover:scale-[1.02]"
+          />
         </Link>
 
         {/* Global Live Search Bar (Desktop) with Live Dropdown */}
