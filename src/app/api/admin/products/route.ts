@@ -45,6 +45,7 @@ export async function GET(req: NextRequest) {
         brand: true,
         categories: { include: { category: true } },
         variants: true,
+        images: { orderBy: { sortOrder: 'asc' } },
       },
       orderBy: { createdAt: 'desc' },
     });
@@ -80,7 +81,7 @@ export async function POST(req: NextRequest) {
         .replace(/^-|-$/g, '');
 
       // Upsert product
-      await prisma.product.upsert({
+      const product = await prisma.product.upsert({
         where: { sku: row.sku.trim() },
         update: {
           name: row.name.trim(),
@@ -107,6 +108,23 @@ export async function POST(req: NextRequest) {
         },
       });
 
+      // If gallery images supplied during creation
+      if (Array.isArray(row.galleryImages) && row.galleryImages.length > 0) {
+        await prisma.productImage.deleteMany({ where: { productId: product.id } });
+        const validGallery = row.galleryImages
+          .filter((u: any) => typeof u === 'string' && u.trim().length > 0)
+          .map((u: string) => u.trim());
+        if (validGallery.length > 0) {
+          await prisma.productImage.createMany({
+            data: validGallery.map((url: string, idx: number) => ({
+              productId: product.id,
+              url,
+              sortOrder: idx,
+            })),
+          });
+        }
+      }
+
       importedCount++;
     }
 
@@ -125,7 +143,19 @@ export async function PUT(req: NextRequest) {
     }
 
     const body = await req.json();
-    const { id, name, sku, price, compareAtPrice, status, stockOnHand, primaryImage, description, isLargeItem } = body;
+    const {
+      id,
+      name,
+      sku,
+      price,
+      compareAtPrice,
+      status,
+      stockOnHand,
+      primaryImage,
+      description,
+      isLargeItem,
+      galleryImages,
+    } = body;
 
     if (!id) {
       return NextResponse.json({ error: 'Product ID is required.' }, { status: 400 });
@@ -149,8 +179,30 @@ export async function PUT(req: NextRequest) {
       include: {
         variants: true,
         categories: { include: { category: true } },
+        images: { orderBy: { sortOrder: 'asc' } },
       },
     });
+
+    // Update gallery images if provided
+    if (Array.isArray(galleryImages)) {
+      await prisma.productImage.deleteMany({
+        where: { productId: id },
+      });
+
+      const validUrls = galleryImages
+        .filter((u: any) => typeof u === 'string' && u.trim().length > 0)
+        .map((u: string) => u.trim());
+
+      if (validUrls.length > 0) {
+        await prisma.productImage.createMany({
+          data: validUrls.map((url: string, idx: number) => ({
+            productId: id,
+            url,
+            sortOrder: idx,
+          })),
+        });
+      }
+    }
 
     if (stockOnHand !== undefined && updated.variants.length > 0) {
       await prisma.productVariant.update({
@@ -159,7 +211,17 @@ export async function PUT(req: NextRequest) {
       });
     }
 
-    return NextResponse.json({ success: true, product: updated });
+    // Refetch product with fresh images list
+    const finalProduct = await prisma.product.findUnique({
+      where: { id },
+      include: {
+        variants: true,
+        categories: { include: { category: true } },
+        images: { orderBy: { sortOrder: 'asc' } },
+      },
+    });
+
+    return NextResponse.json({ success: true, product: finalProduct });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }

@@ -46,6 +46,7 @@ export default function AdminProductsPage() {
     stockOnHand: '15',
     status: 'ACTIVE',
     primaryImage: '',
+    galleryImages: [] as string[],
     description: '',
     isLargeItem: false,
   });
@@ -75,6 +76,12 @@ export default function AdminProductsPage() {
   const handleOpenEdit = (p: any) => {
     setIsAddMode(false);
     setFormError('');
+    const galleryUrls = Array.isArray(p.images)
+      ? p.images
+          .map((img: any) => (typeof img === 'string' ? img : img.url))
+          .filter((url: string) => url && typeof url === 'string' && url.trim().length > 0)
+      : [];
+
     setEditForm({
       id: p.id,
       name: p.name || '',
@@ -84,6 +91,7 @@ export default function AdminProductsPage() {
       stockOnHand: String(p.variants?.[0]?.stockOnHand ?? 15),
       status: p.status || 'ACTIVE',
       primaryImage: p.primaryImage || '',
+      galleryImages: galleryUrls,
       description: p.description || '',
       isLargeItem: Boolean(p.isLargeItem),
     });
@@ -103,6 +111,7 @@ export default function AdminProductsPage() {
       stockOnHand: '20',
       status: 'ACTIVE',
       primaryImage: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1000&q=80',
+      galleryImages: [],
       description: 'Handcrafted luxury British furniture piece made to order.',
       isLargeItem: false,
     });
@@ -130,6 +139,7 @@ export default function AdminProductsPage() {
                 compareAtPrice: editForm.compareAtPrice || null,
                 stock: editForm.stockOnHand,
                 primaryImage: editForm.primaryImage,
+                galleryImages: editForm.galleryImages,
                 description: editForm.description,
               },
             ],
@@ -400,26 +410,43 @@ export default function AdminProductsPage() {
               ) : (
                 products.map((p) => (
                   <tr key={p.id} className="hover:bg-brand-50/40 transition-colors">
-                    <td className="py-3.5 px-4 flex items-center gap-3">
-                      <img
-                        src={p.primaryImage}
-                        alt={p.name}
-                        className="w-11 h-11 rounded-lg object-cover bg-gray-100 shrink-0 border border-gray-100"
-                      />
-                      <div>
-                        <span className="font-semibold text-charcoal-900 line-clamp-1 max-w-xs">
-                          {p.name}
-                        </span>
-                        {p.slug && (
-                          <Link
-                            href={`/products/${p.slug}`}
-                            target="_blank"
-                            className="inline-flex items-center gap-1 text-[11px] text-brand-600 hover:underline mt-0.5"
-                          >
-                            <span>View Storefront</span>
-                            <ExternalLink className="w-3 h-3" />
-                          </Link>
-                        )}
+                    <td className="py-3.5 px-4">
+                      <div className="flex items-center gap-3">
+                        <div className="relative shrink-0">
+                          <img
+                            src={p.primaryImage}
+                            alt={p.name}
+                            className="w-12 h-12 rounded-xl object-cover bg-gray-100 border border-gray-200 shadow-xs"
+                          />
+                          {p.images && p.images.length > 0 && (
+                            <span
+                              className="absolute -bottom-1 -right-1 bg-brand-900 text-white text-[9px] font-bold px-1.5 py-0.2 rounded-full shadow"
+                              title={`${p.images.length + 1} photos on storefront`}
+                            >
+                              +{p.images.length}
+                            </span>
+                          )}
+                        </div>
+                        <div>
+                          <span className="font-semibold text-charcoal-900 line-clamp-1 max-w-xs block">
+                            {p.name}
+                          </span>
+                          <div className="flex items-center gap-2 mt-0.5">
+                            <span className="text-[10px] text-gray-500 font-medium bg-gray-100 px-1.5 py-0.5 rounded">
+                              {(p.images?.length || 0) + 1} photos
+                            </span>
+                            {p.slug && (
+                              <Link
+                                href={`/products/${p.slug}`}
+                                target="_blank"
+                                className="inline-flex items-center gap-0.5 text-[10px] text-brand-600 hover:underline"
+                              >
+                                <span>Storefront</span>
+                                <ExternalLink className="w-2.5 h-2.5" />
+                              </Link>
+                            )}
+                          </div>
+                        </div>
                       </div>
                     </td>
                     <td className="py-3.5 px-4 font-mono font-bold text-brand-700">{p.sku}</td>
@@ -629,17 +656,160 @@ export default function AdminProductsPage() {
                   </label>
                 </div>
 
-                <div className="md:col-span-2">
-                  <label className="block text-xs font-semibold text-charcoal-800 mb-1">
-                    Primary Image URL
-                  </label>
-                  <input
-                    type="url"
-                    value={editForm.primaryImage}
-                    onChange={(e) => setEditForm({ ...editForm, primaryImage: e.target.value })}
-                    className="w-full text-xs border border-gray-300 rounded-xl px-3 py-2.5 focus:ring-2 focus:ring-brand-400 focus:outline-none"
-                    placeholder="https://images.unsplash.com/..."
-                  />
+                {/* Product Images Management (Primary Cover + Full Gallery) */}
+                <div className="md:col-span-2 space-y-4 pt-3 border-t border-gray-100">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div>
+                      <h4 className="text-xs font-bold uppercase tracking-wider text-charcoal-900 flex items-center gap-2">
+                        <span>Product Images & Media Gallery</span>
+                        <span className="bg-brand-100 text-brand-800 text-[10px] px-2 py-0.5 rounded-full font-semibold">
+                          {1 + editForm.galleryImages.length} Photos Total
+                        </span>
+                      </h4>
+                      <p className="text-[11px] text-gray-500 mt-0.5">
+                        The storefront displays your Cover Image plus all gallery images in the thumbnail carousel (e.g. 4 photos for Richmond Chair).
+                      </p>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={() => setEditForm({ ...editForm, galleryImages: [...editForm.galleryImages, ''] })}
+                      className="inline-flex items-center gap-1.5 bg-brand-50 hover:bg-brand-100 text-brand-700 px-3 py-1.5 rounded-xl text-xs font-semibold border border-brand-200 transition-colors shrink-0"
+                    >
+                      <Plus className="w-3.5 h-3.5" />
+                      <span>Add Angle / Image</span>
+                    </button>
+                  </div>
+
+                  {/* 1. Primary Cover Image */}
+                  <div className="bg-brand-50/40 p-4 rounded-2xl border border-brand-200 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[11px] font-bold text-brand-900 uppercase tracking-wide flex items-center gap-1.5">
+                        <span className="w-2 h-2 rounded-full bg-brand-600 inline-block" />
+                        Image #1 — Main Cover Photo (Primary)
+                      </span>
+                      <span className="text-[10px] text-brand-700 font-semibold bg-brand-100 px-2 py-0.5 rounded">
+                        Storefront Default View
+                      </span>
+                    </div>
+
+                    <div className="flex items-start gap-3">
+                      <div className="w-16 h-16 rounded-xl overflow-hidden bg-white border border-gray-200 shrink-0 shadow-xs flex items-center justify-center">
+                        {editForm.primaryImage ? (
+                          <img
+                            src={editForm.primaryImage}
+                            alt="Cover Preview"
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                              (e.target as any).src = 'https://placehold.co/100x100?text=Invalid';
+                            }}
+                          />
+                        ) : (
+                          <span className="text-[10px] text-gray-400">No Image</span>
+                        )}
+                      </div>
+                      <div className="flex-1">
+                        <input
+                          type="url"
+                          value={editForm.primaryImage}
+                          onChange={(e) => setEditForm({ ...editForm, primaryImage: e.target.value })}
+                          className="w-full text-xs border border-gray-300 rounded-xl px-3 py-2.5 focus:ring-2 focus:ring-brand-400 focus:outline-none bg-white font-mono"
+                          placeholder="https://images.unsplash.com/..."
+                          required
+                        />
+                        <span className="text-[10px] text-gray-400 mt-1 block">
+                          This is the main image displayed on catalogue listings and the hero image on the product page.
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 2. Additional Gallery Angles (Images 2, 3, 4+) */}
+                  <div className="space-y-2.5">
+                    <div className="flex items-center justify-between">
+                      <label className="block text-[11px] font-bold uppercase tracking-wider text-charcoal-700">
+                        Additional Gallery Angles ({editForm.galleryImages.length} Images)
+                      </label>
+                      {editForm.galleryImages.length === 0 && (
+                        <span className="text-[10px] text-amber-600 font-medium">
+                          No additional gallery angles yet. Click &quot;Add Angle / Image&quot; above to add more.
+                        </span>
+                      )}
+                    </div>
+
+                    {editForm.galleryImages.map((imgUrl, idx) => (
+                      <div
+                        key={idx}
+                        className="flex items-center gap-3 p-3 bg-gray-50/70 border border-gray-200 rounded-2xl hover:border-brand-300 transition-colors"
+                      >
+                        <div className="w-12 h-12 rounded-xl overflow-hidden bg-white border border-gray-200 shrink-0 flex items-center justify-center shadow-xs">
+                          {imgUrl ? (
+                            <img
+                              src={imgUrl}
+                              alt={`Angle #${idx + 2}`}
+                              className="w-full h-full object-cover"
+                              onError={(e) => {
+                                (e.target as any).src = 'https://placehold.co/100x100?text=Invalid';
+                              }}
+                            />
+                          ) : (
+                            <span className="text-[9px] text-gray-400 font-mono">#{idx + 2}</span>
+                          )}
+                        </div>
+
+                        <div className="flex-1">
+                          <div className="flex items-center justify-between mb-1">
+                            <span className="text-[10px] font-semibold text-gray-700">
+                              Image #{idx + 2} — Gallery Thumbnail Angle
+                            </span>
+                          </div>
+                          <input
+                            type="url"
+                            value={imgUrl}
+                            onChange={(e) => {
+                              const updated = [...editForm.galleryImages];
+                              updated[idx] = e.target.value;
+                              setEditForm({ ...editForm, galleryImages: updated });
+                            }}
+                            className="w-full text-xs border border-gray-300 rounded-lg px-2.5 py-1.5 focus:ring-2 focus:ring-brand-400 focus:outline-none bg-white font-mono"
+                            placeholder={`https://images.unsplash.com/... (Angle #${idx + 2})`}
+                          />
+                        </div>
+
+                        <div className="flex items-center gap-1.5 shrink-0">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              // Swap this gallery image with primary cover
+                              const oldPrimary = editForm.primaryImage;
+                              const updated = [...editForm.galleryImages];
+                              updated[idx] = oldPrimary;
+                              setEditForm({
+                                ...editForm,
+                                primaryImage: imgUrl,
+                                galleryImages: updated,
+                              });
+                            }}
+                            className="px-2 py-1 text-gray-500 hover:text-brand-800 hover:bg-brand-50 rounded-lg transition-colors text-[10px] font-semibold border border-gray-200 hover:border-brand-200"
+                            title="Set this photo as the main cover photo"
+                          >
+                            Set Cover
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const updated = editForm.galleryImages.filter((_, i) => i !== idx);
+                              setEditForm({ ...editForm, galleryImages: updated });
+                            }}
+                            className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                            title="Delete this gallery photo"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
 
                 <div className="md:col-span-2">
