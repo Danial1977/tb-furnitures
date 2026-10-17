@@ -497,3 +497,17 @@
 .theme-noir footer svg {
   color: #F59E0B !important;
 }
+
+/* ========================================================
+   HEADINGS CONTRAST ENFORCEMENT FOR DARK SECTIONS ACROSS ALL THEMES
+   ======================================================== */
+.theme-heritage .bg-brand-900 h1, .theme-heritage .bg-brand-900 h2, .theme-heritage .bg-brand-900 h3, .theme-heritage .bg-brand-900 h4,
+.theme-nordic .bg-brand-900 h1, .theme-nordic .bg-brand-900 h2, .theme-nordic .bg-brand-900 h3, .theme-nordic .bg-brand-900 h4,
+.theme-botanical .bg-brand-900 h1, .theme-botanical .bg-brand-900 h2, .theme-botanical .bg-brand-900 h3, .theme-botanical .bg-brand-900 h4,
+.theme-noir .bg-brand-900 h1, .theme-noir .bg-brand-900 h2, .theme-noir .bg-brand-900 h3, .theme-noir .bg-brand-900 h4,
+.bg-brand-900 h1, .bg-brand-900 h2, .bg-brand-900 h3, .bg-brand-900 h4,
+.bg-charcoal-900 h1, .bg-charcoal-900 h2, .bg-charcoal-900 h3, .bg-charcoal-900 h4,
+.bg-charcoal-950 h1, .bg-charcoal-950 h2, .bg-charcoal-950 h3, .bg-charcoal-950 h4 {
+  color: #FFFFFF !important;
+}
+

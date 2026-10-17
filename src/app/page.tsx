@@ -323,12 +323,12 @@ export default function HomePage() {
       <section className="bg-brand-900 text-brand-100 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-5 space-y-6">
-            <span className="text-xs uppercase tracking-widest font-semibold text-brand-400">The TB Standard</span>
-            <h2 className="font-editorial text-3xl sm:text-4xl lg:text-5xl text-white font-bold leading-tight">
+            <span className="text-xs uppercase tracking-widest font-semibold text-brand-400">The Oakland Standard</span>
+            <h2 className="font-editorial text-3xl sm:text-4xl lg:text-5xl !text-white font-bold leading-tight" style={{ color: '#FFFFFF' }}>
               Honest materials. Master joinery. Unhurried design.
             </h2>
             <p className="text-sm text-brand-200/80 leading-relaxed">
-              We reject throwaway flatpack culture. Each TB Furnitures piece is engineered with mortise-and-tenon joints, sustainably harvested European hardwoods, and durable high-resilience fillings.
+              We reject throwaway flatpack culture. Each Oakland Furniture &amp; Flooring piece is engineered with mortise-and-tenon joints, sustainably harvested European hardwoods, and durable high-resilience fillings.
             </p>
             <ul className="space-y-3 text-xs text-brand-200/90 pt-2">
               <li className="flex items-center gap-2">

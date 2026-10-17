@@ -117,9 +117,9 @@ export function Navbar() {
         {/* Brand Logo */}
         <Link href="/" className="flex items-center shrink-0 group py-0 my-0">
           <img
-            src="/images/oakland-logo.jpg"
+            src="/images/oakland-navbar-logo.jpg"
             alt="Oakland Furniture & Flooring"
-            className="w-[140px] sm:w-[170px] md:w-[200px] h-auto object-contain block rounded transition-transform group-hover:scale-[1.01]"
+            className="w-[150px] sm:w-[180px] md:w-[220px] h-auto object-contain block transition-transform group-hover:scale-[1.01]"
           />
         </Link>
 
