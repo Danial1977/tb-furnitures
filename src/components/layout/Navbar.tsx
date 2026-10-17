@@ -106,14 +106,14 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-brand-100 transition-all">
       {/* Main Bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-[2px] flex items-center justify-between gap-4 sm:gap-6">
+      <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 py-[2px] flex items-center justify-between gap-1 sm:gap-4 md:gap-6">
         {/* Mobile menu trigger */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="lg:hidden p-2 text-charcoal-800 hover:text-brand-600 focus:outline-none"
+          className="lg:hidden p-1.5 sm:p-2 text-charcoal-800 hover:text-brand-600 focus:outline-none shrink-0"
           aria-label="Toggle Navigation Menu"
         >
-          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          {mobileMenuOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
         </button>
 
         {/* Brand Logo */}
@@ -121,7 +121,7 @@ export function Navbar() {
           <img
             src="/images/oakland-navbar-logo.jpg"
             alt="Oakland Furniture & Flooring"
-            className="w-[150px] sm:w-[180px] md:w-[220px] h-auto object-contain block transition-transform group-hover:scale-[1.01]"
+            className="w-[105px] min-[360px]:w-[120px] min-[400px]:w-[140px] sm:w-[170px] md:w-[220px] h-auto object-contain block transition-transform group-hover:scale-[1.01]"
           />
         </Link>
 
@@ -223,15 +223,15 @@ export function Navbar() {
         </div>
 
         {/* Action Icons & Theme Swatches */}
-        <div className="flex items-center gap-3 sm:gap-4">
+        <div className="flex items-center gap-1 min-[360px]:gap-1.5 sm:gap-3 md:gap-4 shrink-0">
           {/* 4 Theme Color Swatches */}
-          <div className="flex items-center gap-1.5 px-2 py-1 bg-brand-100/70 rounded-full border border-brand-200" title="Select Theme Palette">
+          <div className="flex items-center gap-1 sm:gap-1.5 px-1.5 sm:px-2 py-0.5 sm:py-1 bg-brand-100/70 rounded-full border border-brand-200 shrink-0" title="Select Theme Palette">
             <span className="hidden xl:inline text-[10px] uppercase font-bold tracking-wider text-charcoal-700 mr-0.5">
               Theme:
             </span>
             <button
               onClick={() => setTheme('heritage')}
-              className={`w-5 h-5 rounded-full transition-all border border-black/10 ${
+              className={`w-3.5 h-3.5 sm:w-5 sm:h-5 rounded-full transition-all border border-black/10 shrink-0 ${
                 theme === 'heritage'
                   ? 'ring-2 ring-offset-1 ring-[#8C5E2D] scale-110 shadow-sm'
                   : 'opacity-75 hover:opacity-100 hover:scale-105'
@@ -241,7 +241,7 @@ export function Navbar() {
             />
             <button
               onClick={() => setTheme('nordic')}
-              className={`w-5 h-5 rounded-full transition-all border border-black/10 ${
+              className={`w-3.5 h-3.5 sm:w-5 sm:h-5 rounded-full transition-all border border-black/10 shrink-0 ${
                 theme === 'nordic'
                   ? 'ring-2 ring-offset-1 ring-[#1E3A8A] scale-110 shadow-sm'
                   : 'opacity-75 hover:opacity-100 hover:scale-105'
@@ -251,7 +251,7 @@ export function Navbar() {
             />
             <button
               onClick={() => setTheme('botanical')}
-              className={`w-5 h-5 rounded-full transition-all border border-black/10 ${
+              className={`w-3.5 h-3.5 sm:w-5 sm:h-5 rounded-full transition-all border border-black/10 shrink-0 ${
                 theme === 'botanical'
                   ? 'ring-2 ring-offset-1 ring-[#1E6637] scale-110 shadow-sm'
                   : 'opacity-75 hover:opacity-100 hover:scale-105'
@@ -261,7 +261,7 @@ export function Navbar() {
             />
             <button
               onClick={() => setTheme('noir')}
-              className={`w-5 h-5 rounded-full transition-all border border-white/20 ${
+              className={`w-3.5 h-3.5 sm:w-5 sm:h-5 rounded-full transition-all border border-white/20 shrink-0 ${
                 theme === 'noir'
                   ? 'ring-2 ring-offset-1 ring-[#F59E0B] scale-110 shadow-sm'
                   : 'opacity-75 hover:opacity-100 hover:scale-105'
@@ -273,12 +273,12 @@ export function Navbar() {
 
           {/* Account */}
           <Link
-            href={session ? (session.user as any)?.role !== 'CUSTOMER' ? '/admin' : '/account' : '/login'}
-            className="flex items-center gap-2 p-2 text-charcoal-800 hover:text-brand-600 transition-colors group"
+            href={session ? ((session.user as any)?.role !== 'CUSTOMER' ? '/admin' : '/account') : '/login'}
+            className="hidden min-[380px]:flex items-center gap-1.5 p-1 sm:p-2 text-charcoal-800 hover:text-brand-600 transition-colors group shrink-0"
             title={session ? 'My Account' : 'Sign In'}
           >
-            <User className="w-5 h-5" />
-            <span className="hidden sm:inline text-xs font-medium">
+            <User className="w-4 h-4 sm:w-5 sm:h-5" />
+            <span className="hidden md:inline text-xs font-medium">
               {session ? session.user?.name?.split(' ')[0] || 'Account' : 'Sign In'}
             </span>
           </Link>
@@ -286,12 +286,12 @@ export function Navbar() {
           {/* Wishlist */}
           <Link
             href="/wishlist"
-            className="p-2 text-charcoal-800 hover:text-brand-600 transition-colors relative"
+            className="p-1 sm:p-2 text-charcoal-800 hover:text-brand-600 transition-colors relative shrink-0"
             title="Wishlist"
           >
-            <Heart className={`w-5 h-5 transition-colors ${wishlistCount > 0 ? 'text-brand-700' : ''}`} />
+            <Heart className={`w-4 h-4 sm:w-5 sm:h-5 transition-colors ${wishlistCount > 0 ? 'text-brand-700' : ''}`} />
             {wishlistCount > 0 && (
-              <span className="absolute top-0.5 right-0.5 bg-red-600 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold shadow-sm">
+              <span className="absolute -top-0.5 -right-0.5 bg-red-600 text-white text-[9px] sm:text-[10px] w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full flex items-center justify-center font-bold shadow-sm">
                 {wishlistCount}
               </span>
             )}
@@ -300,11 +300,11 @@ export function Navbar() {
           {/* Shopping Basket */}
           <Link
             href="/cart"
-            className="flex items-center gap-2.5 bg-brand-900 hover:bg-brand-800 text-white px-4 py-2.5 rounded-full transition-all shadow-sm hover:shadow"
+            className="flex items-center gap-1.5 sm:gap-2.5 bg-brand-900 hover:bg-brand-800 text-white px-2.5 py-1.5 sm:px-4 sm:py-2.5 rounded-full transition-all shadow-sm hover:shadow shrink-0"
             title="View Basket"
           >
-            <ShoppingBag className="w-4 h-4" />
-            <span className="text-xs font-semibold">{itemCount}</span>
+            <ShoppingBag className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            <span className="text-[11px] sm:text-xs font-semibold">{itemCount}</span>
           </Link>
         </div>
       </div>
@@ -434,6 +434,75 @@ export function Navbar() {
             >
               My Account / Orders
             </Link>
+          </div>
+
+          {/* Theme Switcher in Mobile Drawer */}
+          <div className="pt-3 border-t border-brand-100 space-y-2">
+            <span className="text-[10px] uppercase font-bold tracking-wider text-charcoal-500 block">
+              Store Theme Palette
+            </span>
+            <div className="grid grid-cols-2 gap-2 text-xs">
+              <button
+                type="button"
+                onClick={() => {
+                  setTheme('heritage');
+                  setMobileMenuOpen(false);
+                }}
+                className={`flex items-center gap-2 p-2 rounded-xl border transition-all text-left ${
+                  theme === 'heritage'
+                    ? 'border-[#8C5E2D] bg-[#8C5E2D]/10 font-bold text-[#8C5E2D]'
+                    : 'border-gray-200 hover:bg-gray-50 text-charcoal-700'
+                }`}
+              >
+                <span className="w-3.5 h-3.5 rounded-full bg-[#8C5E2D] shrink-0 border border-black/10" />
+                <span>Heritage Walnut</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setTheme('nordic');
+                  setMobileMenuOpen(false);
+                }}
+                className={`flex items-center gap-2 p-2 rounded-xl border transition-all text-left ${
+                  theme === 'nordic'
+                    ? 'border-[#1E3A8A] bg-[#1E3A8A]/10 font-bold text-[#1E3A8A]'
+                    : 'border-gray-200 hover:bg-gray-50 text-charcoal-700'
+                }`}
+              >
+                <span className="w-3.5 h-3.5 rounded-full bg-[#0A192F] shrink-0 border border-black/10" />
+                <span>British Navy</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setTheme('botanical');
+                  setMobileMenuOpen(false);
+                }}
+                className={`flex items-center gap-2 p-2 rounded-xl border transition-all text-left ${
+                  theme === 'botanical'
+                    ? 'border-[#1E6637] bg-[#1E6637]/10 font-bold text-[#1E6637]'
+                    : 'border-gray-200 hover:bg-gray-50 text-charcoal-700'
+                }`}
+              >
+                <span className="w-3.5 h-3.5 rounded-full bg-[#2E563B] shrink-0 border border-black/10" />
+                <span>Botanical Olive</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setTheme('noir');
+                  setMobileMenuOpen(false);
+                }}
+                className={`flex items-center gap-2 p-2 rounded-xl border transition-all text-left ${
+                  theme === 'noir'
+                    ? 'border-charcoal-900 bg-charcoal-900/10 font-bold text-charcoal-900'
+                    : 'border-gray-200 hover:bg-gray-50 text-charcoal-700'
+                }`}
+              >
+                <span className="w-3.5 h-3.5 rounded-full bg-[#0D0E11] shrink-0 border border-black/10" />
+                <span>Luxe Noir</span>
+              </button>
+            </div>
           </div>
         </div>
       )}

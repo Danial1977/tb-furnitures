@@ -84,6 +84,8 @@
 
   html {
     font-family: var(--font-body);
+    overflow-x: hidden;
+    max-width: 100vw;
   }
 
   body {
@@ -91,6 +93,9 @@
     color: var(--text-main) !important;
     font-family: var(--font-body);
     transition: background-color 0.25s ease, color 0.25s ease;
+    overflow-x: hidden;
+    max-width: 100vw;
+    position: relative;
   }
 
   h1, h2, h3, h4, .font-editorial {
