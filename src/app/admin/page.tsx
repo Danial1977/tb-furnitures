@@ -107,14 +107,6 @@ export default function AdminDashboardPage() {
           >
             Manage Orders & Shipments &rarr;
           </Link>
-          <a
-            href="http://localhost:5555"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs font-semibold px-4 py-2 rounded-lg border border-brand-300 text-brand-800 bg-white hover:bg-brand-50 transition-colors"
-          >
-            Open Database Studio (Port 5555) ↗
-          </a>
         </div>
       </div>
 
