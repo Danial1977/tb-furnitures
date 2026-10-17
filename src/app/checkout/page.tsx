@@ -2,8 +2,8 @@
 
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { useCart } from '@/components/providers/Providers';
-import { formatGBP, calculateDeliveryFee } from '@/lib/utils';
+import { useCart, useSettings } from '@/components/providers/Providers';
+import { formatGBP } from '@/lib/utils';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ShieldCheck, Truck, Lock, CheckCircle2, ArrowRight } from 'lucide-react';
@@ -12,6 +12,7 @@ export default function CheckoutPage() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const { items, subtotal, hasLargeItem, clearCart } = useCart();
+  const { settings, calculateDeliveryFee } = useSettings();
 
   // Step 1: Authentication Guard
   // Redirect unauthenticated customers to login with callback
@@ -45,9 +46,11 @@ export default function CheckoutPage() {
     }
   }, [session, formData.fullName]);
 
-  // Calculate pricing
+  // Calculate pricing based on live database site settings
   const baseDelivery = calculateDeliveryFee(subtotal, hasLargeItem);
-  const deliverySurcharge = deliveryMethod === 'EXPRESS' ? 25.0 : deliveryMethod === 'TWO_MAN' ? 49.99 : baseDelivery;
+  const twoManDelivery = subtotal >= settings.twoManFreeThreshold ? 0 : settings.twoManDeliveryFee;
+  const deliverySurcharge =
+    deliveryMethod === 'EXPRESS' ? 25.0 : deliveryMethod === 'TWO_MAN' ? twoManDelivery : baseDelivery;
   const total = subtotal + deliverySurcharge;
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -347,10 +350,15 @@ export default function CheckoutPage() {
                   />
                   <div>
                     <p className="text-sm font-semibold text-charcoal-900">Specialist Two-Man White Glove Service</p>
-                    <p className="text-xs text-gray-500">Delivered to room of choice, unboxed, assembled, and packaging recycled.</p>
+                    <p className="text-xs text-gray-500">
+                      Delivered to room of choice, unboxed, assembled, and packaging recycled.
+                      {subtotal >= settings.twoManFreeThreshold ? ' (Complimentary on orders over ' + formatGBP(settings.twoManFreeThreshold) + ')' : ''}
+                    </p>
                   </div>
                 </div>
-                <span className="text-xs font-bold text-charcoal-900">{formatGBP(49.99)}</span>
+                <span className="text-xs font-bold text-charcoal-900">
+                  {twoManDelivery === 0 ? 'FREE' : formatGBP(settings.twoManDeliveryFee)}
+                </span>
               </label>
             </div>
           </div>

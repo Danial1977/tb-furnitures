@@ -520,3 +520,17 @@ model ContactSubmission {
   @@map("contact_submissions")
 }
 
+// ----------------------------------------------------
+// 9. SITE SETTINGS & CONFIGURATION
+// ----------------------------------------------------
+
+model SiteSetting {
+  id        String   @id @default(uuid())
+  key       String   @unique // e.g. "delivery_rules", "store_config"
+  value     Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("site_settings")
+}
+

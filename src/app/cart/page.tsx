@@ -1,13 +1,14 @@
 'use client';
 
 import Link from 'next/link';
-import { useCart } from '@/components/providers/Providers';
-import { formatGBP, calculateDeliveryFee } from '@/lib/utils';
-import { Trash2, Plus, Minus, ArrowRight, ShieldCheck, Truck } from 'lucide-react';
+import { useCart, useSettings } from '@/components/providers/Providers';
+import { formatGBP } from '@/lib/utils';
+import { Trash2, Plus, Minus, ArrowRight, ShieldCheck, Truck, CheckCircle2 } from 'lucide-react';
 import { useState } from 'react';
 
 export default function CartPage() {
   const { items, subtotal, hasLargeItem, updateQuantity, removeFromCart, clearCart } = useCart();
+  const { settings, calculateDeliveryFee } = useSettings();
   const [promoCode, setPromoCode] = useState('');
   const [discount, setDiscount] = useState(0);
   const [promoApplied, setPromoApplied] = useState(false);
@@ -130,6 +131,34 @@ export default function CartPage() {
           <h2 className="font-editorial text-xl font-bold text-charcoal-900 pb-3 border-b border-brand-100">
             Order Summary
           </h2>
+
+          {/* Dynamic Free Delivery Notification & Progress Bar */}
+          <div className="p-3.5 rounded-xl border text-xs transition-all bg-brand-50/70 border-brand-200">
+            {subtotal >= settings.freeDeliveryThreshold ? (
+              <div className="flex items-center gap-2 text-emerald-800 font-medium">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                <span>You qualify for <strong>FREE Standard Delivery</strong>! (Orders over {formatGBP(settings.freeDeliveryThreshold)})</span>
+              </div>
+            ) : (
+              <div className="space-y-1.5">
+                <div className="flex items-center justify-between text-charcoal-800">
+                  <span className="flex items-center gap-1.5">
+                    <Truck className="w-3.5 h-3.5 text-brand-600" />
+                    <span>Add <strong>{formatGBP(settings.freeDeliveryThreshold - subtotal)}</strong> for FREE delivery</span>
+                  </span>
+                  <span className="text-[10px] font-bold text-brand-600">
+                    {Math.round((subtotal / settings.freeDeliveryThreshold) * 100)}%
+                  </span>
+                </div>
+                <div className="w-full bg-brand-200/60 rounded-full h-1.5 overflow-hidden">
+                  <div
+                    className="bg-brand-600 h-1.5 rounded-full transition-all duration-500"
+                    style={{ width: `${Math.min(100, Math.round((subtotal / settings.freeDeliveryThreshold) * 100))}%` }}
+                  />
+                </div>
+              </div>
+            )}
+          </div>
 
           {/* Promo code */}
           <form onSubmit={handleApplyPromo} className="space-y-2">

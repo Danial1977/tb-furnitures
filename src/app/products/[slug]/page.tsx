@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import { useCart, useWishlist } from '@/components/providers/Providers';
+import { useCart, useWishlist, useSettings } from '@/components/providers/Providers';
 import { formatGBP } from '@/lib/utils';
 import Link from 'next/link';
 import {
@@ -22,6 +22,7 @@ export default function ProductDetailPage() {
   const params = useParams();
   const slug = params?.slug as string;
   const { isInWishlist, toggleWishlist } = useWishlist();
+  const { settings } = useSettings();
 
   const [product, setProduct] = useState<any | null>(null);
   const [loading, setLoading] = useState(true);
@@ -268,7 +269,7 @@ export default function ProductDetailPage() {
             </div>
             <div className="flex items-center gap-2.5">
               <Truck className="w-4 h-4 text-brand-600 shrink-0" />
-              <span>Complimentary standard delivery on orders over £500</span>
+              <span>Complimentary standard delivery on orders over £{settings.freeDeliveryThreshold}</span>
             </div>
           </div>
         </div>

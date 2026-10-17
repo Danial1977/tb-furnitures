@@ -1,8 +1,8 @@
 'use client';
 
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useState, Suspense } from 'react';
 import Link from 'next/link';
 import {
   ShoppingBag,
@@ -47,14 +47,21 @@ const STATUS_COLORS: Record<string, { bg: string; text: string; border: string }
   REFUNDED: { bg: 'bg-gray-100', text: 'text-gray-700', border: 'border-gray-300' },
 };
 
-export default function AdminOrdersPage() {
+function AdminOrdersListContent() {
   const { data: session, status } = useSession();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const initialSearch = searchParams.get('search') || '';
 
   const [orders, setOrders] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState(initialSearch);
   const [selectedStatus, setSelectedStatus] = useState('ALL');
+
+  useEffect(() => {
+    const q = searchParams.get('search');
+    if (q) setSearch(q);
+  }, [searchParams]);
 
   // Status update modal state
   const [updatingOrder, setUpdatingOrder] = useState<any | null>(null);
@@ -525,3 +532,12 @@ export default function AdminOrdersPage() {
     </div>
   );
 }
+
+export default function AdminOrdersPage() {
+  return (
+    <Suspense fallback={<div className="p-8 text-xs text-gray-500">Loading order management...</div>}>
+      <AdminOrdersListContent />
+    </Suspense>
+  );
+}
+

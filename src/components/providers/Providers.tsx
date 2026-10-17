@@ -5,8 +5,9 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { CartItemDto } from '@/types';
 import { ThemeProvider } from '@/components/providers/ThemeProvider';
 import { WishlistProvider, useWishlist } from '@/components/providers/WishlistProvider';
+import { SettingsProvider, useSettings } from '@/components/providers/SettingsProvider';
 
-export { useWishlist };
+export { useWishlist, useSettings };
 
 interface CartContextType {
   items: CartItemDto[];
@@ -85,21 +86,23 @@ export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <SessionProvider>
       <ThemeProvider>
-        <CartContext.Provider
-          value={{
-            items,
-            itemCount,
-            subtotal,
-            hasLargeItem,
-            addToCart,
-            addItem: addToCart,
-            removeFromCart,
-            updateQuantity,
-            clearCart,
-          }}
-        >
-          <WishlistProvider>{children}</WishlistProvider>
-        </CartContext.Provider>
+        <SettingsProvider>
+          <CartContext.Provider
+            value={{
+              items,
+              itemCount,
+              subtotal,
+              hasLargeItem,
+              addToCart,
+              addItem: addToCart,
+              removeFromCart,
+              updateQuantity,
+              clearCart,
+            }}
+          >
+            <WishlistProvider>{children}</WishlistProvider>
+          </CartContext.Provider>
+        </SettingsProvider>
       </ThemeProvider>
     </SessionProvider>
   );

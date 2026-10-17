@@ -25,13 +25,19 @@ export function slugify(text: string): string {
     .replace(/\-\-+/g, '-');
 }
 
-export function calculateDeliveryFee(itemsSubtotal: number, hasLargeItem: boolean): number {
-  // Free delivery for orders over £500 unless specialist two-man furniture delivery required
+export function calculateDeliveryFee(
+  itemsSubtotal: number,
+  hasLargeItem: boolean,
+  freeThreshold: number = 500,
+  standardFee: number = 19.99,
+  twoManFee: number = 49.99,
+  twoManThreshold: number = 1000
+): number {
   if (hasLargeItem) {
-    return itemsSubtotal >= 1000 ? 0 : 49.99; // Two-man white glove delivery
+    return itemsSubtotal >= twoManThreshold ? 0 : twoManFee;
   }
-  if (itemsSubtotal >= 500) {
-    return 0; // Free standard UK delivery threshold
+  if (itemsSubtotal >= freeThreshold) {
+    return 0;
   }
-  return 19.99; // Standard UK furniture courier delivery
+  return standardFee;
 }

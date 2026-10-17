@@ -1,12 +1,33 @@
 import { Truck, ShieldCheck, Clock, MapPin, CheckCircle, AlertTriangle } from 'lucide-react';
 import Link from 'next/link';
+import { prisma } from '@/lib/prisma';
+import { DEFAULT_SITE_SETTINGS } from '@/lib/settings';
+import { formatGBP } from '@/lib/utils';
 
 export const metadata = {
   title: 'UK Delivery Information | TB Furnitures',
   description: 'Specialist Two-Man White Glove delivery throughout the United Kingdom. Room of choice placement, assembly, and packaging removal.',
 };
 
-export default function DeliveryPage() {
+export const dynamic = 'force-dynamic';
+
+async function getDeliverySettings() {
+  try {
+    const record = await prisma.siteSetting.findUnique({
+      where: { key: 'delivery_rules' },
+    });
+    if (record?.value) {
+      return { ...DEFAULT_SITE_SETTINGS, ...(record.value as any) };
+    }
+  } catch (e) {
+    console.error('Failed to load delivery settings in delivery page:', e);
+  }
+  return DEFAULT_SITE_SETTINGS;
+}
+
+export default async function DeliveryPage() {
+  const settings = await getDeliverySettings();
+
   return (
     <div className="bg-sand-50/50 min-h-screen py-12 md:py-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
@@ -74,22 +95,40 @@ export default function DeliveryPage() {
               </thead>
               <tbody className="divide-y divide-gray-100">
                 <tr>
-                  <td className="py-3.5 px-4 font-semibold text-charcoal-900">Standard Orders Over £1,000</td>
+                  <td className="py-3.5 px-4 font-semibold text-charcoal-900">
+                    Standard Orders Over {formatGBP(settings.freeDeliveryThreshold)}
+                  </td>
                   <td className="py-3.5 px-4 text-gray-600">Mainland UK (England, Wales, Scotland Lowlands)</td>
-                  <td className="py-3.5 px-4 text-gray-600">5 – 10 Business Days</td>
+                  <td className="py-3.5 px-4 text-gray-600">3 – 5 Business Days</td>
                   <td className="py-3.5 px-4 font-bold text-sage-600 text-right">FREE</td>
                 </tr>
                 <tr>
-                  <td className="py-3.5 px-4 font-semibold text-charcoal-900">Two-Man White Glove (Under £1,000)</td>
+                  <td className="py-3.5 px-4 font-semibold text-charcoal-900">
+                    Standard Orders Under {formatGBP(settings.freeDeliveryThreshold)}
+                  </td>
                   <td className="py-3.5 px-4 text-gray-600">Mainland UK</td>
-                  <td className="py-3.5 px-4 text-gray-600">5 – 10 Business Days</td>
-                  <td className="py-3.5 px-4 font-bold text-charcoal-900 text-right">£49.00</td>
+                  <td className="py-3.5 px-4 text-gray-600">3 – 5 Business Days</td>
+                  <td className="py-3.5 px-4 font-bold text-charcoal-900 text-right">
+                    {formatGBP(settings.standardDeliveryFee)}
+                  </td>
                 </tr>
                 <tr>
-                  <td className="py-3.5 px-4 font-semibold text-charcoal-900">Standard Parcel Delivery (Decor / Cushions)</td>
-                  <td className="py-3.5 px-4 text-gray-600">All UK Postcodes (DPD / Royal Mail Tracked)</td>
-                  <td className="py-3.5 px-4 text-gray-600">2 – 3 Business Days</td>
-                  <td className="py-3.5 px-4 font-bold text-charcoal-900 text-right">£9.95 (Free over £150)</td>
+                  <td className="py-3.5 px-4 font-semibold text-charcoal-900">
+                    Two-Man White Glove (Under {formatGBP(settings.twoManFreeThreshold)})
+                  </td>
+                  <td className="py-3.5 px-4 text-gray-600">Mainland UK Room of Choice</td>
+                  <td className="py-3.5 px-4 text-gray-600">5 – 10 Business Days</td>
+                  <td className="py-3.5 px-4 font-bold text-charcoal-900 text-right">
+                    {formatGBP(settings.twoManDeliveryFee)}
+                  </td>
+                </tr>
+                <tr>
+                  <td className="py-3.5 px-4 font-semibold text-charcoal-900">
+                    Two-Man White Glove (Over {formatGBP(settings.twoManFreeThreshold)})
+                  </td>
+                  <td className="py-3.5 px-4 text-gray-600">Mainland UK Room of Choice</td>
+                  <td className="py-3.5 px-4 text-gray-600">5 – 10 Business Days</td>
+                  <td className="py-3.5 px-4 font-bold text-sage-600 text-right">FREE</td>
                 </tr>
                 <tr>
                   <td className="py-3.5 px-4 font-semibold text-charcoal-900">Scottish Highlands & Islands</td>
