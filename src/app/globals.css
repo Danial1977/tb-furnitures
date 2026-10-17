@@ -507,7 +507,10 @@
 .theme-noir .bg-brand-900 h1, .theme-noir .bg-brand-900 h2, .theme-noir .bg-brand-900 h3, .theme-noir .bg-brand-900 h4,
 .bg-brand-900 h1, .bg-brand-900 h2, .bg-brand-900 h3, .bg-brand-900 h4,
 .bg-charcoal-900 h1, .bg-charcoal-900 h2, .bg-charcoal-900 h3, .bg-charcoal-900 h4,
-.bg-charcoal-950 h1, .bg-charcoal-950 h2, .bg-charcoal-950 h3, .bg-charcoal-950 h4 {
+.bg-charcoal-950 h1, .bg-charcoal-950 h2, .bg-charcoal-950 h3, .bg-charcoal-950 h4,
+.text-white h1, .text-white h2, .text-white h3, .text-white h4,
+[class*="from-charcoal"] h1, [class*="from-charcoal"] h2, [class*="from-charcoal"] h3, [class*="from-charcoal"] h4,
+[class*="from-black"] h1, [class*="from-black"] h2, [class*="from-black"] h3, [class*="from-black"] h4 {
   color: #FFFFFF !important;
 }
 

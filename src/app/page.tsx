@@ -130,7 +130,7 @@ const ROOM_CATEGORIES = [
   {
     title: 'The Bedroom Retreat',
     subtitle: 'Fluted headboards, natural mattresses & timber bedside chests',
-    imageUrl: 'https://images.unsplash.com/photo-1540518614846-7ede433c4ef7?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=800&q=80',
     href: '/categories/bedroom',
   },
   {
@@ -285,11 +285,13 @@ export default function HomePage() {
                 alt={room.title}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-charcoal-950/80 via-charcoal-950/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-charcoal-950/85 via-charcoal-950/30 to-transparent" />
               <div className="absolute bottom-6 left-6 right-6 text-white">
-                <h3 className="font-editorial text-xl font-bold">{room.title}</h3>
-                <p className="text-xs text-brand-200/80 mt-1 line-clamp-2">{room.subtitle}</p>
-                <span className="inline-flex items-center gap-1 text-xs font-semibold text-brand-300 group-hover:text-white mt-3 transition-colors">
+                <h3 className="font-editorial text-xl font-bold !text-white text-white drop-shadow-md" style={{ color: '#FFFFFF' }}>
+                  {room.title}
+                </h3>
+                <p className="text-xs text-brand-100/90 mt-1 line-clamp-2 drop-shadow-sm">{room.subtitle}</p>
+                <span className="inline-flex items-center gap-1 text-xs font-semibold text-brand-300 group-hover:text-white mt-3 transition-colors drop-shadow-sm">
                   Shop Collection &rarr;
                 </span>
               </div>
