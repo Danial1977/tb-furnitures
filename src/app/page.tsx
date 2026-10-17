@@ -285,13 +285,24 @@ export default function HomePage() {
                 alt={room.title}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-charcoal-950/85 via-charcoal-950/30 to-transparent" />
-              <div className="absolute bottom-6 left-6 right-6 text-white">
-                <h3 className="font-editorial text-xl font-bold !text-white text-white drop-shadow-md" style={{ color: '#FFFFFF' }}>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent pointer-events-none" />
+              <div className="absolute bottom-6 left-6 right-6 z-10">
+                <div
+                  className="room-card-title font-editorial text-xl sm:text-2xl font-bold tracking-normal drop-shadow-lg"
+                  style={{ color: '#FFFFFF' }}
+                >
                   {room.title}
-                </h3>
-                <p className="text-xs text-brand-100/90 mt-1 line-clamp-2 drop-shadow-sm">{room.subtitle}</p>
-                <span className="inline-flex items-center gap-1 text-xs font-semibold text-brand-300 group-hover:text-white mt-3 transition-colors drop-shadow-sm">
+                </div>
+                <p
+                  className="room-card-subtitle text-xs text-stone-200 mt-1.5 line-clamp-2 drop-shadow-sm font-medium"
+                  style={{ color: '#F3F4F6' }}
+                >
+                  {room.subtitle}
+                </p>
+                <span
+                  className="room-card-cta inline-flex items-center gap-1 text-xs font-semibold text-amber-300 group-hover:text-white mt-3 transition-colors drop-shadow-sm"
+                  style={{ color: '#FCD34D' }}
+                >
                   Shop Collection &rarr;
                 </span>
               </div>

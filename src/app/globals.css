@@ -514,3 +514,39 @@
   color: #FFFFFF !important;
 }
 
+/* ========================================================
+   ROOM CARDS HIGH-SPECIFICITY OVERRIDES (PURE WHITE TEXT)
+   ======================================================== */
+.room-card-title,
+.theme-heritage .room-card-title,
+.theme-nordic .room-card-title,
+.theme-botanical .room-card-title,
+.theme-noir .room-card-title,
+html body .room-card-title,
+html body [class*="theme-"] .room-card-title,
+html body div.room-card-title {
+  color: #FFFFFF !important;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.85) !important;
+}
+
+.room-card-subtitle,
+.theme-heritage .room-card-subtitle,
+.theme-nordic .room-card-subtitle,
+.theme-botanical .room-card-subtitle,
+.theme-noir .room-card-subtitle,
+html body .room-card-subtitle,
+html body [class*="theme-"] .room-card-subtitle {
+  color: #F3F4F6 !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.75) !important;
+}
+
+.room-card-cta,
+.theme-heritage .room-card-cta,
+.theme-nordic .room-card-cta,
+.theme-botanical .room-card-cta,
+.theme-noir .room-card-cta,
+html body .room-card-cta,
+html body [class*="theme-"] .room-card-cta {
+  color: #FCD34D !important;
+}
+

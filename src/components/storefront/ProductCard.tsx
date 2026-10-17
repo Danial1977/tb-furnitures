@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Heart, ShoppingBag, Eye, Star } from 'lucide-react';
 import { formatGBP } from '@/lib/utils';
 import { useCart } from '@/components/providers/Providers';
+import { useWishlist } from '@/components/providers/WishlistProvider';
 import { ProductSummary } from '@/types';
 import { useState } from 'react';
 
@@ -14,7 +15,9 @@ interface ProductCardProps {
 
 export function ProductCard({ product }: ProductCardProps) {
   const { addToCart } = useCart();
+  const { isInWishlist, toggleWishlist } = useWishlist();
   const [added, setAdded] = useState(false);
+  const isWishlisted = isInWishlist(product.id);
 
   const handleQuickAdd = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -79,12 +82,17 @@ export function ProductCard({ product }: ProductCardProps) {
           <button
             onClick={(e) => {
               e.preventDefault();
-              alert(`Added ${product.name} to your Wishlist!`);
+              e.stopPropagation();
+              toggleWishlist(product);
             }}
-            className="p-2.5 rounded-full bg-white text-charcoal-900 hover:text-red-600 shadow-md transition-colors"
-            title="Save to Wishlist"
+            className={`p-2.5 rounded-full bg-white shadow-md transition-all ${
+              isWishlisted
+                ? 'text-red-600 scale-105 hover:scale-110'
+                : 'text-charcoal-900 hover:text-red-600'
+            }`}
+            title={isWishlisted ? 'Remove from Wishlist' : 'Save to Wishlist'}
           >
-            <Heart className="w-4 h-4" />
+            <Heart className={`w-4 h-4 transition-colors ${isWishlisted ? 'fill-red-600 text-red-600' : ''}`} />
           </button>
         </div>
       </Link>

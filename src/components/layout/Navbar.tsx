@@ -15,6 +15,7 @@ import {
   Package,
 } from 'lucide-react';
 import { useCart } from '@/components/providers/CartProvider';
+import { useWishlist } from '@/components/providers/WishlistProvider';
 import { useTheme } from '@/components/providers/ThemeProvider';
 import { useSession } from 'next-auth/react';
 import { formatGBP } from '@/lib/utils';
@@ -31,6 +32,7 @@ const CATEGORIES = [
 
 export function Navbar() {
   const { itemCount } = useCart();
+  const { itemCount: wishlistCount } = useWishlist();
   const { theme, setTheme } = useTheme();
   const { data: session } = useSession();
   const router = useRouter();
@@ -287,7 +289,12 @@ export function Navbar() {
             className="p-2 text-charcoal-800 hover:text-brand-600 transition-colors relative"
             title="Wishlist"
           >
-            <Heart className="w-5 h-5" />
+            <Heart className={`w-5 h-5 transition-colors ${wishlistCount > 0 ? 'text-brand-700' : ''}`} />
+            {wishlistCount > 0 && (
+              <span className="absolute top-0.5 right-0.5 bg-red-600 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold shadow-sm">
+                {wishlistCount}
+              </span>
+            )}
           </Link>
 
           {/* Shopping Basket */}

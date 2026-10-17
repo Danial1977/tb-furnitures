@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import { useCart } from '@/components/providers/Providers';
+import { useCart, useWishlist } from '@/components/providers/Providers';
 import { formatGBP } from '@/lib/utils';
 import Link from 'next/link';
 import {
@@ -21,6 +21,7 @@ import {
 export default function ProductDetailPage() {
   const params = useParams();
   const slug = params?.slug as string;
+  const { isInWishlist, toggleWishlist } = useWishlist();
 
   const [product, setProduct] = useState<any | null>(null);
   const [loading, setLoading] = useState(true);
@@ -240,6 +241,18 @@ export default function ProductDetailPage() {
             >
               <ShoppingBag className="w-4 h-4" />
               {added ? '✓ Added to Basket' : `Add to Basket — ${formatGBP(currentPrice * quantity)}`}
+            </button>
+
+            <button
+              onClick={() => toggleWishlist(product)}
+              className={`p-3.5 rounded-full border transition-all flex items-center justify-center shadow-sm ${
+                isInWishlist(product.id)
+                  ? 'border-red-300 bg-red-50 text-red-600'
+                  : 'border-brand-200 bg-brand-50 hover:bg-brand-100 text-charcoal-800'
+              }`}
+              title={isInWishlist(product.id) ? 'Remove from Wishlist' : 'Save to Wishlist'}
+            >
+              <Heart className={`w-5 h-5 transition-colors ${isInWishlist(product.id) ? 'fill-red-600 text-red-600' : ''}`} />
             </button>
           </div>
 

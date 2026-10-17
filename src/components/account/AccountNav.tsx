@@ -15,10 +15,10 @@ export function AccountNav({ userEmail, userName }: AccountNavProps) {
 
   const navItems = [
     {
-      href: '/account',
+      href: '/account/orders',
       label: 'Order History & Dispatch',
       icon: Package,
-      active: pathname === '/account',
+      active: pathname === '/account' || pathname?.startsWith('/account/orders'),
     },
     {
       href: '/account/addresses',

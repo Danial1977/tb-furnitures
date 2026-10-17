@@ -4,6 +4,9 @@ import { SessionProvider } from 'next-auth/react';
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { CartItemDto } from '@/types';
 import { ThemeProvider } from '@/components/providers/ThemeProvider';
+import { WishlistProvider, useWishlist } from '@/components/providers/WishlistProvider';
+
+export { useWishlist };
 
 interface CartContextType {
   items: CartItemDto[];
@@ -95,7 +98,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
             clearCart,
           }}
         >
-          {children}
+          <WishlistProvider>{children}</WishlistProvider>
         </CartContext.Provider>
       </ThemeProvider>
     </SessionProvider>
